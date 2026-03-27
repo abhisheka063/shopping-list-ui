@@ -63,14 +63,9 @@ export const ShoppingForm = (props: Props) => {
             <Button
               type="primary"
               htmlType="submit"
+              icon={<PlusCircleFilled />}
               block
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
             >
-              <PlusCircleFilled />
               Add Item
             </Button>
           </Form.Item>

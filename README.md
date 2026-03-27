@@ -189,15 +189,6 @@ npm run lint
 
 ---
 
-## 🚀 Future Improvements
-
-* Backend integration (API + pagination)
-* Edit/Delete functionality
-* Persistent storage (localStorage / DB)
-* Advanced analytics in reports
-
----
-
 ## 📄 License
 
 MIT
