@@ -47,7 +47,7 @@ export const ShoppingTable = ({ filteredShoppingList }: ShoppingProps) => {
       columns={columns}
       dataSource={visibleData}
       pagination={false}
-      scroll={{ y: tableHeight }}
+      scroll={{ x:"max-content", y: tableHeight }}
       onScroll={handleScroll}
     />
   );
