@@ -1,40 +1,70 @@
-import { Card, Form, Input, Select } from "antd";
+import { Button, Col, DatePicker, Form, Input, Row, Select, Typography } from "antd";
 import type { ShoppingItem } from "../../types/shopping";
-import { options, subcategoryOptions } from "./constants";
+import { options, subcategoryOptions } from "./constants/constants";
+import { useState } from "react";
+import { PlusCircleFilled } from "@ant-design/icons";
+import dayjs from "dayjs";
 
-type Props={
-    addItemsToList: (item:ShoppingItem) => void;
-}
-export const ShoppingForm = (props:Props) => {
-    return(
+type Props = {
+  addItemsToList: (item: ShoppingItem) => void;
+};
+export const ShoppingForm = (props: Props) => {
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const {Text}=Typography;
 
-        <Card title="Add Item to Shopping List" style={{background:"#fafafa"}}>
-            <Form layout="inline" onFinish={props.addItemsToList}>
-            <Form.Item label="Item Name" name="name">
-                <Input placeholder="Enter item name" />
+  const onCategoryChange = (value: string) => {
+    setSelectedCategory(value);
+  };
+  return (
+    // <Card style={{ padding:"0",margin:"0"}}>
+      <Form style={{padding:"1rem"}} layout="vertical" onFinish={props.addItemsToList} initialValues={{date:dayjs()}}>
+        <Row gutter={[16, 16]} align="middle">
+          <Col xs={24} sm={24} md={5}>
+            <Form.Item label={<Text strong>Item Name</Text>} name="name" >
+              <Input placeholder="Enter item name" required />
             </Form.Item>
-            <Form.Item label="Category" name="category">
-                <Select
-                  placeholder="Enter category"
-                  options={options}
-                />
+          </Col>
+          <Col xs={24} sm={24} md={4}>
+            <Form.Item label={<Text strong>Category</Text>} name="category"  rules={[{required:true, message:"Please select a category"}]}>
+              <Select
+                placeholder="Enter category"
+                options={options}
+                onChange={onCategoryChange}
+              />
             </Form.Item>
-            <Form.Item label="Subcategory" name="subcategory">
-                <Select
-                  placeholder="Enter subcategory"
-                  options={subcategoryOptions}
-                />
+          </Col>
+          <Col xs={24} sm={24} md={4}>
+            <Form.Item label={<Text strong>Subcategory</Text>} name="subcategory" rules={[{required:true , message:"Please select a subcategory"}]}>
+              <Select
+                placeholder="Enter subcategory"
+                options={subcategoryOptions[selectedCategory]}
+              />
             </Form.Item>
-            <Form.Item label="Quantity" name="quantity">
-                <Input placeholder="Enter quantity" type="number" />
+          </Col>
+          <Col xs={24} sm={24} md={3}>
+            <Form.Item label={<Text strong>Quantity</Text>} name="qty">
+              <Input placeholder="Enter quantity" type="number" required />
             </Form.Item>
-            <Form.Item label="Price" name="price">
-                <Input placeholder="Enter price" type="number" />
+          </Col>
+          <Col xs={24} sm={24} md={3}>
+            <Form.Item label={<Text strong>Price</Text>} name="price">
+              <Input placeholder="Enter price" type="number" required />
             </Form.Item>
-            <Form.Item>
-                <button type="submit">Add Item</button>
+          </Col>
+          <Col xs={24} sm={24} md={3}>
+            <Form.Item label={<Text strong>Date</Text>} name="date">
+              <DatePicker format="DD-MM-YYYY" style={{width:"100%"}}/>
             </Form.Item>
-        </Form>
-        </Card>
-    )
-}
+          </Col>
+          <Col xs={24} sm={24} md={2} style={{display:"flex",alignItems:"center",justifyContent:"flex-end"}}>
+            <Form.Item noStyle>
+              <Button type="primary" htmlType="submit" icon={<PlusCircleFilled />}>
+                Add Item
+              </Button>
+           </Form.Item>
+          </Col>
+        </Row>
+      </Form>
+    // </Card>
+  );
+};

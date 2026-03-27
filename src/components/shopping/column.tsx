@@ -1,7 +1,8 @@
 import type { TableProps } from 'antd';
 import { Tag } from 'antd';
 import type { ShoppingItem } from '../../types/shopping';
-import { convertDateToLocaleStringTwoDigit } from '../../utils/DateUtils';
+import dayjs from 'dayjs';
+import { capitalizeFirstLetter, columnCurrencyFormatter } from '../../utils/ShoppingItemUtils';
 
 export const columns: TableProps<ShoppingItem>['columns'] = [
   {
@@ -11,26 +12,29 @@ export const columns: TableProps<ShoppingItem>['columns'] = [
     sorter: (a, b) => a.name.localeCompare(b.name),
     render: (name: string, record: ShoppingItem) => {
       const dateAdded = record.date;
-      const isNew = (Date.now() - new Date(dateAdded).getTime()) < 24 * 60 * 60 * 1000;
-      return isNew ? <Tag color="green">{name}</Tag> : name;
+      const isNew = dayjs().diff(dateAdded, 'day') <= 2;
+      const formattedName = capitalizeFirstLetter(name);
+      return isNew ? <> {formattedName} <Tag variant="outlined" color="#36A2EB">New</Tag></> : formattedName;
     }
   },
   {
     title: 'Category',
     dataIndex: 'category',
     key: 'category',
+    render: (category: string) => capitalizeFirstLetter(category),
     sorter: (a, b) => a.category.localeCompare(b.category),
   },
   {
     title: 'Subcategory',
     dataIndex: 'subcategory',
     key: 'subcategory',
+    render: (subcategory: string) => capitalizeFirstLetter(subcategory),
     sorter: (a, b) => a.subcategory.localeCompare(b.subcategory),
   },
   {
     title: 'Quantity',
-    dataIndex: 'quantity',
-    key: 'quantity',
+    dataIndex: 'qty',
+    key: 'qty',
     sorter: (a, b) => a.qty - b.qty,
   },
   {
@@ -38,17 +42,18 @@ export const columns: TableProps<ShoppingItem>['columns'] = [
     dataIndex: 'price',
     key: 'price',
     sorter: (a, b) => a.price - b.price,
+    render: (price: number) => columnCurrencyFormatter(price),
   },
   {
     title: 'Total',
     key: 'total',
-    render: (_, record: ShoppingItem) => record.qty * record.price,
+    render: (_, record: ShoppingItem) => columnCurrencyFormatter(record.qty * record.price),
   },
   {
-    title: 'Date Added',
+    title: 'Date',
     dataIndex: 'dateAdded',
     key: 'dateAdded',
-    sorter: (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
-    render: (_,record) => convertDateToLocaleStringTwoDigit(record.date),
+    sorter: (a, b) => a.date.valueOf() - b.date.valueOf(),
+    render: (_,record) => record.date ? record.date.format("DD MMM YYYY") : dayjs().format("DD MMM YYYY"),
   }
 ];

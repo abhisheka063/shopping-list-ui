@@ -1,74 +1,203 @@
+# 🛒 Shopping List UI
 
-# Shopping List UI
+An interactive and scalable shopping list application built using **React**, **TypeScript**, **Vite**, and **Ant Design**.
+The app demonstrates clean architecture, state management, dynamic filtering, and UI best practices.
 
-An interactive shopping list web application built with **React**, **TypeScript**, **Vite**, and **Ant Design**. Visualizations are provided with **Chart.js**.
+---
 
-## Features
+## 🚀 Features
 
-- Add, edit, and remove shopping list items
-- Categorize and subcategorize items
-- Track quantity, price, and date added
-- See computed totals for each item
-- Filter and sort items by various fields
-- Responsive, modern UI with Ant Design
-- Data visualizations with Chart.js
+### 🧾 Core Functionality
 
-## Tech Stack
+* Add new shopping items with:
 
-- [React](https://react.dev/) (v19)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Vite](https://vitejs.dev/)
-- [Ant Design](https://ant.design/)
-- [Chart.js](https://www.chartjs.org/) & [react-chartjs-2](https://react-chartjs-2.js.org/)
-- [Day.js](https://day.js.org/) for date handling
+  * Name, Category, Subcategory
+  * Quantity, Price, Date
+* Display items in a structured table
+* Automatically calculate **Total (Quantity × Price)**
 
-## Getting Started
+---
+
+### 🔍 Filtering & Search
+
+* Filter by:
+
+  * Category
+  * Subcategory (dependent on category)
+* Real-time search (applied on top of filters)
+* Combined filtering logic (AND condition)
+
+---
+
+### 📊 Data Visualization
+
+* "View Report" opens a **modal popup**
+* Displays charts using **Chart.js**
+* Chart data is dynamically computed from items
+
+---
+
+### 📈 Table Enhancements
+
+* Sorting (Price, Quantity, Date)
+* Dynamic **"New" tag** for recently added items
+* Clean and responsive table UI
+
+---
+
+### 🔄 Infinite Scroll (Scalable Logic)
+
+* Implements **infinite scroll logic**
+* Works on:
+
+  * Filtered data (not raw data)
+
+---
+
+## 📤 Export Functionality
+* Export filtered shopping list data as JSON
+* Export reflects currently applied filters
+* Enables easy data sharing
+
+---
+
+### 🎨 UI & UX
+
+* Fully responsive layout using Ant Design Grid (`Row`, `Col`)
+* Clean alignment and spacing
+* Consistent design using Ant Design components
+
+---
+
+### 🌙 Dark Mode
+
+* Global theme toggle using Ant Design `ConfigProvider`
+* State managed at root (`App.tsx`)
+* Applies across entire application
+
+---
+
+## 🧠 Architecture Highlights
+
+* **Single Source of Truth** → `Home.tsx`
+* **Separation of Concerns**
+
+  * UI → Components
+  * Logic → Home / utils
+* **Derived State Pattern**
+
+  * `filteredItems` computed, not stored
+* **Reusable & scalable structure**
+
+---
+
+## 🗂️ Project Structure
+
+```bash
+src/
+├── components/
+│   ├── common/
+│   │   ├── AppHeader.tsx
+│   │   ├── BarChart.tsx
+│   │    
+│   └── shopping/
+│       ├── ShoppingForm.tsx
+│       ├── Filters.tsx
+│       ├── ShoppingTable.tsx
+│       ├── ReportCharts.tsx
+│       ├── PageHeader.tsx
+│       └── constants/
+│           └── constants.ts
+├── pages/
+│   └── Home.tsx
+├── types/
+│   └── shopping.ts
+├── utils/
+│   └── ShoppingItemUtils.ts
+├── mock/
+│   ├── data.json
+│   └── generator/
+│       └── dataGenerator.ts
+```
+
+---
+
+## 🛠️ Tech Stack
+
+* ⚛️ React
+* 🟦 TypeScript
+* ⚡ Vite
+* 🎨 Ant Design
+* 📊 Chart.js + react-chartjs-2
+* 📅 Day.js
+
+---
+
+## ⚙️ Getting Started
 
 ### Prerequisites
 
-- Node.js (v18 or newer recommended)
+* Node.js (v16+ recommended)
+
+---
 
 ### Installation
 
-1. Clone the repository:
-   ```sh
-   git clone <repo-url>
-   cd shopping-list-ui
-   ```
-2. Install dependencies:
-   ```sh
-   npm install
-   ```
+```bash
+git clone <repo-url>
+cd shopping-list-ui
+npm install
+```
 
-### Running the App
+---
 
-Start the development server:
+### Run Development Server
 
-```sh
+```bash
 npm run dev
 ```
 
-The app will be available at [http://localhost:5173](http://localhost:5173) (or the port shown in your terminal).
+App will be available at:
+👉 http://localhost:5173
 
-### Building for Production
+---
 
-```sh
+### Build for Production
+
+```bash
 npm run build
 ```
 
+---
+
 ### Linting
 
-```sh
+```bash
 npm run lint
 ```
 
-## Project Structure
+---
 
-- `src/components/shopping/` — Shopping list UI components (table, form, charts, etc.)
-- `src/types/` — TypeScript types (e.g., ShoppingItem)
-- `public/` — Static assets
-- `index.html` — Main HTML entry
+## 💡 Key Design Decisions
 
-## License
+* Form state handled using Ant Design Form (no manual state)
+* Filters stored in Home (centralized logic)
+* Categories in form → **hardcoded**
+* Categories in filters → **derived from data**
+* Infinite scroll implemented without backend (UI-level pagination)
+* Modal controlled from parent (Home)
+
+---
+
+## 🚀 Future Improvements
+
+* Backend integration (API + pagination)
+* Edit/Delete functionality
+* Persistent storage (localStorage / DB)
+* Advanced analytics in reports
+
+---
+
+## 📄 License
 
 MIT
