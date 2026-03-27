@@ -38,7 +38,7 @@ const ReportCharts = ({ view, onViewReport, chartData }: Props) => {
         <>
         <Row  justify="space-between" align="middle">
           { CardItems.map((item:ItemInsights)=>( 
-            <Col md={7} key={item.title} >
+            <Col xs={24} sm={24} md={7} key={item.title} >
                 <Card>
                     <Typography.Title  level={5}>{item.title}</Typography.Title>
                     <Typography.Title style={{ color:"#36A2EB",margin:"0"}} level={4}>{item.value}</Typography.Title>
@@ -48,10 +48,10 @@ const ReportCharts = ({ view, onViewReport, chartData }: Props) => {
         ))}
         </Row>
         <Row>
-            <Col md={24}>
+            <Col xs={24} sm={24} md={24}>
                 <Typography.Title style={{margin:"1rem 0 0 1rem"}} level={3}>Sales Report</Typography.Title>
             </Col>
-            <Col md={24}>
+            <Col xs={24} sm={24} md={24}>
                 <Card variant="borderless">
                     <BarChart 
                     labels={AllCategories}

@@ -34,7 +34,7 @@ export const BarChart = ({
       },
     ],
   };
-
+  // Here used columnCurrencyFormatter to convert to indian currency
   const options: ChartOptions<"bar"> = {
     responsive: true,
     plugins: {

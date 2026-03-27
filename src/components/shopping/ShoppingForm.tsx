@@ -7,17 +7,19 @@ import dayjs from "dayjs";
 
 type Props = {
   addItemsToList: (item: ShoppingItem) => void;
-};
+  };
 export const ShoppingForm = (props: Props) => {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [form] = Form.useForm();
   const {Text}=Typography;
 
   const onCategoryChange = (value: string) => {
+    // rest form when changed
     setSelectedCategory(value);
+    form.setFieldsValue({ subcategory: undefined });
   };
   return (
-    // <Card style={{ padding:"0",margin:"0"}}>
-      <Form style={{padding:"1rem"}} layout="vertical" onFinish={props.addItemsToList} initialValues={{date:dayjs()}}>
+      <Form form={form} style={{padding:"1rem"}} layout="vertical" onFinish={props.addItemsToList} initialValues={{date:dayjs()}}>
         <Row gutter={[16, 16]} align="middle">
           <Col xs={24} sm={24} md={5}>
             <Form.Item label={<Text strong>Item Name</Text>} name="name" >
@@ -65,6 +67,5 @@ export const ShoppingForm = (props: Props) => {
           </Col>
         </Row>
       </Form>
-    // </Card>
   );
 };

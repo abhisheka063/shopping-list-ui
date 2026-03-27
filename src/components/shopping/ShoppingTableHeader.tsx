@@ -7,6 +7,7 @@ import dayjs from "dayjs";
 export const ShoppingTableHeader = (props: ShoppingHeaderProps) => {
     const {token}= theme.useToken();
 
+    // Function to handle export as json
     const exportToJson=(data:ShoppingItem[],fileName="file.json")=>{
       if (!data.length) return;
       try{
