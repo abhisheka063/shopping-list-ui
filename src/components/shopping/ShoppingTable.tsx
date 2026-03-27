@@ -49,7 +49,6 @@ export const ShoppingTable = ({ filteredShoppingList }: ShoppingProps) => {
       pagination={false}
       scroll={{ y: tableHeight }}
       onScroll={handleScroll}
-      rowKey={(record, index) => index!}
     />
   );
 };
